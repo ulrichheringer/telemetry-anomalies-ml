@@ -1,12 +1,12 @@
 # telemetry-anomalies-ml
 
-Identifica pontos anômalos em CPU, RAM, latência e tráfego de API com Isolation Forest treinado só em observações normais.
+Flags unusual CPU, memory, API latency, and traffic measurements with an Isolation Forest trained on normal observations.
 
-## Dados
+## Data
 
-O pipeline gera dados sintéticos determinísticos localmente, identificados como sintéticos em `pipeline.py`. Nenhum dado privado ou download externo é necessário. A divisão e a semente de avaliação são descritas junto às métricas abaixo.
+Deterministic synthetic data is generated locally in `pipeline.py`. No private data or external download is required.
 
-## Instalação e execução
+## Install and run
 
 ```bash
 python -m venv .venv
@@ -18,8 +18,10 @@ python cli.py train --model model.joblib
 python cli.py predict --model model.joblib
 ```
 
-## Métricas obtidas
+## Evaluation results
 
-Seed 42: Isolation Forest (contamination 0,05), ajustado apenas em 1.350 linhas normais do treino; holdout com 500 linhas e 50 anomalias conhecidas — precisão **0,6338**, recall **0,9000**, F1 **0,7438**. São medições do gerador sintético, com quatro padrões de anomalia definidos, e não afirmam desempenho em telemetria real.
+With seed 42, the Isolation Forest (contamination 0.05) was fit on 1,350 normal training rows. On a 500-row holdout containing 50 known anomalies, precision was 0.6338, recall was 0.9000, and F1 was 0.7438. The synthetic generator defines four anomaly patterns; these results do not measure performance on real telemetry.
 
-Limitação: dados e regras de geração simplificados; antes de uso real, substitua-os por dados com licença e proveniência adequadas e valide fora da amostra.
+## Limitations
+
+The generated patterns are simplified and may not reflect real services. Validate thresholds and anomaly behavior on representative, appropriately licensed telemetry before relying on alerts.
